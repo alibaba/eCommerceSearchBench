@@ -1,0 +1,49 @@
+# IntelliJ project files
+.idea/
+*.iml
+out
+gen
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+!/.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse
+.classpath
+.settings/
+.project
+
+# System related
+*.DS_Store
+Thumbs.db
+
+
+.gradle/
+gradle/
+
+**/build/
+**/.ipynb_checkpoints/
+# **/resources/
+**/*.iml
+# **/dataset
+log-processing/sql/demo/
+**/.DS_Store
+
+tf-serving/model.png
+tf-serving/ranking_weights_model.h5
+benchmark-cli.zip
+search-planner.jar
+query-planner.jar
+data-generator/docker/file/data
+projects/query-planner/bin/
+projects/search-planner/bin/
+data-generator/bin/
+

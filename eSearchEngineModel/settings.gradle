@@ -1,0 +1,3 @@
+rootProject.name = 'eCommerceSearchBench'
+include 'search-planner'
+include 'query-planner'

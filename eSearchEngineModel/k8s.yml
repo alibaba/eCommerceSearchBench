@@ -1,0 +1,346 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: search-planner
+spec:
+  clusterIP: 10.96.171.230
+  ports:
+  - name: search-planner
+    port: 8080
+  selector:
+    app: search-planner
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ranking-service
+spec:
+  clusterIP: 10.96.171.231
+  ports:
+  - name: ranking-service
+    port: 9203
+  selector:
+    app: ranking-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ha3
+spec:
+  clusterIP: 10.96.171.232
+  ports:
+  - name: ha3-excellent
+    port: 9200
+  - name: ha3-summary
+    port: 9204
+  selector:
+    app: ha3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-planner
+spec:
+  clusterIP: 10.96.171.233
+  ports:
+  - name: query-planner
+    port: 8088
+  - name: qp-neo4j
+    port: 7687
+  selector:
+    app: query-planner
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tf-serving
+spec:
+  clusterIP: 10.96.171.234
+  ports:
+  - name: tf-serving
+    port: 8501
+  selector:
+    app: tf-serving
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: benchmark-cli
+spec:
+  clusterIP: 10.96.171.235
+  ports:
+  - name: benchmark-cli
+    port: 8080
+  selector:
+    app: benchmark-cli
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jmeter
+spec:
+  clusterIP: 10.96.171.236
+  ports:
+  - name: jmeter
+    port: 8080
+  selector:
+    app: jmeter
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tf-serving
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tf-serving
+  template:
+    metadata:
+      labels:
+        app: tf-serving
+    spec:
+      containers:
+      - name: tf-serving
+        image: reg.docker.alibaba-inc.com/csp/aliesearch-tf-serving:latest
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "4"
+          limits:
+            memory: "8Gi"
+            cpu: "4"
+        ports:
+        - containerPort: 8501
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query-planner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query-planner
+  template:
+    metadata:
+      labels:
+        app: query-planner
+    spec:
+      containers:
+      - name: query-planner
+        image: reg.docker.alibaba-inc.com/csp/aliesearch-query-planner:latest
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "8"
+          limits:
+            memory: "8Gi"
+            cpu: "8"
+        ports:
+        - containerPort: 8088
+          name: query-planner
+        - containerPort: 7687
+          name: qp-neo4j
+        env:
+        - name: tensor_flow_server_ip
+          value: "10.96.171.234"
+        - name: tensor_flow_server_port
+          value: "8501"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ha3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ha3
+  template:
+    metadata:
+      labels:
+        app: ha3
+    spec:
+      containers:
+      - name: ha3
+        image: reg.docker.alibaba-inc.com/csp/aliesearch-ha3:latest
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "8"
+          limits:
+            memory: "8Gi"
+            cpu: "8"
+        ports:
+        - containerPort: 9200
+          name: ha3-excellent
+        - containerPort: 9204
+          name: ha3-summary
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ranking-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ranking-service
+  template:
+    metadata:
+      labels:
+        app: ranking-service
+    spec:
+      containers:
+      - name: ranking-service
+        image: reg.docker.alibaba-inc.com/csp/aliesearch-ranking-service:latest
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "4"
+          limits:
+            memory: "8Gi"
+            cpu: "4"
+        ports:
+        - containerPort: 9203
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-planner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: search-planner
+  template:
+    metadata:
+      labels:
+        app: search-planner
+    spec:
+      containers:
+      - name: search-planner
+        image: reg.docker.alibaba-inc.com/csp/aliesearch-search-planner:latest
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "8"
+          limits:
+            memory: "8Gi"
+            cpu: "8"
+        ports:
+        - containerPort: 8080
+        env:
+        - name: query_planner_host
+          value: "10.96.171.233"
+        - name: query_planner_port
+          value: "8088"
+        - name: excellent_item_host
+          value: "10.96.171.232"
+        - name: excellent_item_port
+          value: "9200"
+        - name: good_item_host
+          value: "10.96.171.232"
+        - name: good_item_port
+          value: "9200"
+        - name: bad_item_host
+          value: "10.96.171.232"
+        - name: bad_item_port
+          value: "9200"
+        - name: ranking_host
+          value: "10.96.171.231"
+        - name: ranking_port
+          value: "9203"
+        - name: summary_host
+          value: "10.96.171.232"
+        - name: summary_port
+          value: "9204"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: benchmark-cli
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: benchmark-cli
+  template:
+    metadata:
+      labels:
+        app: benchmark-cli
+    spec:
+      containers:
+      - name: benchmark-cli
+        image: reg.docker.alibaba-inc.com/csp/aliesearch-benchmark-cli:latest
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "4"
+          limits:
+            memory: "8Gi"
+            cpu: "4"
+        env:
+        - name: query_planner_host
+          value: "10.96.171.233"
+        - name: query_planner_port
+          value: "8088"
+        - name: excellent_item_host
+          value: "10.96.171.232"
+        - name: excellent_item_port
+          value: "9200"
+        - name: good_item_host
+          value: "10.96.171.232"
+        - name: good_item_port
+          value: "9200"
+        - name: bad_item_host
+          value: "10.96.171.232"
+        - name: bad_item_port
+          value: "9200"
+        - name: ranking_host
+          value: "10.96.171.231"
+        - name: ranking_port
+          value: "9203"
+        - name: summary_host
+          value: "10.96.171.232"
+        - name: summary_port
+          value: "9204"
+        - name: neo4j_host
+          value: "10.96.171.233"
+        - name: neo4j_port
+          value: "7687"
+      initContainers:
+      - name: init-sp
+        image: reg.docker.alibaba-inc.com/busybox:latest
+        command: ['sh', '-c', 'sleep 30; echo 30 seconds sleep finished!']
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jmeter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jmeter
+  template:
+    metadata:
+      labels:
+        app: jmeter
+    spec:
+      containers:
+      - name: jmeter
+        image: reg.docker.alibaba-inc.com/csp/aliesearch-jmeter-image:latest
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "8"
+          limits:
+            memory: "8Gi"
+            cpu: "8"
+        env:
+        - name: search_planner_host
+          value: "10.96.171.230"
+        - name: search_planner_port
+          value: "8080"

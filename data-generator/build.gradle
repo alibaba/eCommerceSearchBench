@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'distribution'
+}
+
+group 'alibaba.com'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.neo4j.driver:neo4j-java-driver:1.7.2'
+    compile 'org.elasticsearch.client:elasticsearch-rest-high-level-client:6.5.2'
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.6'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+    compile group: 'info.picocli', name: 'picocli', version: '3.9.2'
+    compile group: 'com.google.guava', name: 'guava', version: '27.1-jre'
+    compile group: 'colt', name: 'colt', version: '1.2.0'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+mainClassName = 'com.alibaba.benchmark.BenchmarkCli'
+
+tasks.distZip.enabled = true
+tasks.distTar.enabled = false
+//distributions {
+//    main {
+//        baseName = 'benchmark-cli'
+//        contents {
+//            from 'src/main/resources/excellent_item_segment.txt'
+//            from 'src/main/resources/good_item_segment.txt'
+//            from 'src/main/resources/bad_item_segment.txt'
+//        }
+//    }
+//}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.alibaba.benchmark.BenchmarkCli'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
