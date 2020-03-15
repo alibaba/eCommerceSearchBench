@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: search-planner
 spec:
-  clusterIP: 10.96.171.230
+  clusterIP: 10.68.171.230
   ports:
   - name: search-planner
     port: 8080
@@ -15,7 +15,7 @@ kind: Service
 metadata:
   name: ranking-service
 spec:
-  clusterIP: 10.96.171.231
+  clusterIP: 10.68.171.231
   ports:
   - name: ranking-service
     port: 9203
@@ -27,7 +27,7 @@ kind: Service
 metadata:
   name: ha3
 spec:
-  clusterIP: 10.96.171.232
+  clusterIP: 10.68.171.232
   ports:
   - name: ha3-excellent
     port: 9200
@@ -41,7 +41,7 @@ kind: Service
 metadata:
   name: query-planner
 spec:
-  clusterIP: 10.96.171.233
+  clusterIP: 10.68.171.233
   ports:
   - name: query-planner
     port: 8088
@@ -55,7 +55,7 @@ kind: Service
 metadata:
   name: tf-serving
 spec:
-  clusterIP: 10.96.171.234
+  clusterIP: 10.68.171.234
   ports:
   - name: tf-serving
     port: 8501
@@ -67,7 +67,7 @@ kind: Service
 metadata:
   name: benchmark-cli
 spec:
-  clusterIP: 10.96.171.235
+  clusterIP: 10.68.171.235
   ports:
   - name: benchmark-cli
     port: 8080
@@ -79,7 +79,7 @@ kind: Service
 metadata:
   name: jmeter
 spec:
-  clusterIP: 10.96.171.236
+  clusterIP: 10.68.171.236
   ports:
   - name: jmeter
     port: 8080
@@ -102,7 +102,7 @@ spec:
     spec:
       containers:
       - name: tf-serving
-        image: reg.docker.alibaba-inc.com/csp/aliesearch-tf-serving:latest
+        image: registry.cn-shenzhen.aliyuncs.com/yuxiaoba/aliesearch-tf-serving:v2
         resources:
           requests:
             memory: "8Gi"
@@ -129,7 +129,7 @@ spec:
     spec:
       containers:
       - name: query-planner
-        image: reg.docker.alibaba-inc.com/csp/aliesearch-query-planner:latest
+        image: registry.cn-shenzhen.aliyuncs.com/yuxiaoba/aliesearch-query-planner:v2
         resources:
           requests:
             memory: "8Gi"
@@ -144,7 +144,7 @@ spec:
           name: qp-neo4j
         env:
         - name: tensor_flow_server_ip
-          value: "10.96.171.234"
+          value: "10.68.171.234"
         - name: tensor_flow_server_port
           value: "8501"
 ---
@@ -164,7 +164,7 @@ spec:
     spec:
       containers:
       - name: ha3
-        image: reg.docker.alibaba-inc.com/csp/aliesearch-ha3:latest
+        image: registry.cn-shenzhen.aliyuncs.com/yuxiaoba/aliesearch-ha3:v1
         resources:
           requests:
             memory: "8Gi"
@@ -194,7 +194,7 @@ spec:
     spec:
       containers:
       - name: ranking-service
-        image: reg.docker.alibaba-inc.com/csp/aliesearch-ranking-service:latest
+        image: registry.cn-shenzhen.aliyuncs.com/yuxiaoba/aliesearch-ranking-service:v2
         resources:
           requests:
             memory: "8Gi"
@@ -221,7 +221,7 @@ spec:
     spec:
       containers:
       - name: search-planner
-        image: reg.docker.alibaba-inc.com/csp/aliesearch-search-planner:latest
+        image: registry.cn-shenzhen.aliyuncs.com/yuxiaoba/aliesearch-search-planner:v2
         resources:
           requests:
             memory: "8Gi"
@@ -233,27 +233,27 @@ spec:
         - containerPort: 8080
         env:
         - name: query_planner_host
-          value: "10.96.171.233"
+          value: "10.68.171.233"
         - name: query_planner_port
           value: "8088"
         - name: excellent_item_host
-          value: "10.96.171.232"
+          value: "10.68.171.232"
         - name: excellent_item_port
           value: "9200"
         - name: good_item_host
-          value: "10.96.171.232"
+          value: "10.68.171.232"
         - name: good_item_port
           value: "9200"
         - name: bad_item_host
-          value: "10.96.171.232"
+          value: "10.68.171.232"
         - name: bad_item_port
           value: "9200"
         - name: ranking_host
-          value: "10.96.171.231"
+          value: "10.68.171.231"
         - name: ranking_port
           value: "9203"
         - name: summary_host
-          value: "10.96.171.232"
+          value: "10.68.171.232"
         - name: summary_port
           value: "9204"
 ---
@@ -273,7 +273,7 @@ spec:
     spec:
       containers:
       - name: benchmark-cli
-        image: reg.docker.alibaba-inc.com/csp/aliesearch-benchmark-cli:latest
+        image: registry.cn-shenzhen.aliyuncs.com/yuxiaoba/aliesearch-benchmark-cli:v1
         resources:
           requests:
             memory: "8Gi"
@@ -283,36 +283,36 @@ spec:
             cpu: "4"
         env:
         - name: query_planner_host
-          value: "10.96.171.233"
+          value: "10.68.171.233"
         - name: query_planner_port
           value: "8088"
         - name: excellent_item_host
-          value: "10.96.171.232"
+          value: "10.68.171.232"
         - name: excellent_item_port
           value: "9200"
         - name: good_item_host
-          value: "10.96.171.232"
+          value: "10.68.171.232"
         - name: good_item_port
           value: "9200"
         - name: bad_item_host
-          value: "10.96.171.232"
+          value: "10.68.171.232"
         - name: bad_item_port
           value: "9200"
         - name: ranking_host
-          value: "10.96.171.231"
+          value: "10.68.171.231"
         - name: ranking_port
           value: "9203"
         - name: summary_host
-          value: "10.96.171.232"
+          value: "10.68.171.232"
         - name: summary_port
           value: "9204"
         - name: neo4j_host
-          value: "10.96.171.233"
+          value: "10.68.171.233"
         - name: neo4j_port
           value: "7687"
       initContainers:
       - name: init-sp
-        image: reg.docker.alibaba-inc.com/busybox:latest
+        image: registry.cn-shenzhen.aliyuncs.com/yuxiaoba/busybox:v1
         command: ['sh', '-c', 'sleep 30; echo 30 seconds sleep finished!']
 ---
 apiVersion: apps/v1
@@ -331,7 +331,7 @@ spec:
     spec:
       containers:
       - name: jmeter
-        image: reg.docker.alibaba-inc.com/csp/aliesearch-jmeter-image:latest
+        image: registry.cn-shenzhen.aliyuncs.com/yuxiaoba/aliesearch-jmeter-image:latest
         resources:
           requests:
             memory: "8Gi"
@@ -341,6 +341,6 @@ spec:
             cpu: "8"
         env:
         - name: search_planner_host
-          value: "10.96.171.230"
+          value: "10.68.171.230"
         - name: search_planner_port
           value: "8080"
