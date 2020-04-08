@@ -17,7 +17,10 @@
 package com.alibaba.benchmark.controller;
 
 import org.apache.http.HttpHost;
+import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
+import org.apache.http.impl.nio.reactor.IOReactorConfig;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder.HttpClientConfigCallback;
 import org.elasticsearch.client.RestHighLevelClient;
 
 public class SearchClient {
@@ -25,7 +28,18 @@ public class SearchClient {
     private RestHighLevelClient client;
 
     public SearchClient(String host, int port, String schema) {
-        client = new RestHighLevelClient(RestClient.builder(new HttpHost(host, port, schema)));
+        client = new RestHighLevelClient(RestClient.builder(new HttpHost(host, port, schema))
+            .setHttpClientConfigCallback(new HttpClientConfigCallback() {
+                @Override
+                public HttpAsyncClientBuilder customizeHttpClient(
+                    HttpAsyncClientBuilder httpClientBuilder) {
+                    return httpClientBuilder.setDefaultIOReactorConfig(
+                        IOReactorConfig.custom().setIoThreadCount(4).build())
+                        .setMaxConnPerRoute(1000)
+                        .setMaxConnTotal(4000);
+                }
+            })
+        );
     }
 
     public RestHighLevelClient getClient() {
