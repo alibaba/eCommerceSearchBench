@@ -18,6 +18,12 @@ cp ./summary_jvm.options ${summary_name}/config/jvm.options
 
 rm -rf elasticsearch-6.3.2
 
+machine=`uname -m`
+if [[ $machine == "aarch64" ]];then
+    echo "xpack.ml.enabled: false" >> ${excellent_name}/config/elasticsearch.yml
+    echo "xpack.ml.enabled: false" >> ${summary_name}/config/elasticsearch.yml
+fi
+
 nohup ./${excellent_name}/bin/elasticsearch -E http.port=9200 -E transport.tcp.port=9300 -E network.host=0.0.0.0 -d &
 echo "${excellent_name} started!"
 nohup ./${summary_name}/bin/elasticsearch -E http.port=9204 -E transport.tcp.port=9304 -E network.host=0.0.0.0 -d &

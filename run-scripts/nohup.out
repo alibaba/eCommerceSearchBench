@@ -1,0 +1,271 @@
+2020-04-28 02:52:19.624504: I tensorflow_serving/model_servers/server.cc:86] Building single TensorFlow model file config:  model_name: ranking_weights_model model_base_path: /models/ranking_weights_model
+2020-04-28 02:52:19.624740: I tensorflow_serving/model_servers/server_core.cc:462] Adding/updating models.
+2020-04-28 02:52:19.624756: I tensorflow_serving/model_servers/server_core.cc:573]  (Re-)adding model: ranking_weights_model
+2020-04-28 02:52:19.725134: I tensorflow_serving/core/basic_manager.cc:739] Successfully reserved resources to load servable {name: ranking_weights_model version: 1}
+2020-04-28 02:52:19.725161: I tensorflow_serving/core/loader_harness.cc:66] Approving load for servable version {name: ranking_weights_model version: 1}
+2020-04-28 02:52:19.725173: I tensorflow_serving/core/loader_harness.cc:74] Loading servable version {name: ranking_weights_model version: 1}
+2020-04-28 02:52:19.725202: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:31] Reading SavedModel from: /models/ranking_weights_model/1
+2020-04-28 02:52:19.727652: I external/org_tensorflow/tensorflow/cc/saved_model/reader.cc:54] Reading meta graph with tags { serve }
+2020-04-28 02:52:19.727679: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:264] Reading SavedModel debug info (if present) from: /models/ranking_weights_model/1
+2020-04-28 02:52:19.727776: I external/org_tensorflow/tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 AVX512F FMA
+2020-04-28 02:52:19.758251: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:203] Restoring SavedModel bundle.
+2020-04-28 02:52:19.822062: I external/org_tensorflow/tensorflow/cc/saved_model/loader.cc:333] SavedModel load for tags { serve }; Status: success: OK. Took 96848 microseconds.
+2020-04-28 02:52:19.822818: I tensorflow_serving/servables/tensorflow/saved_model_warmup.cc:105] No warmup data file found at /models/ranking_weights_model/1/assets.extra/tf_serving_warmup_requests
+2020-04-28 02:52:19.823446: I tensorflow_serving/core/loader_harness.cc:87] Successfully loaded servable version {name: ranking_weights_model version: 1}
+2020-04-28 02:52:19.874133: I tensorflow_serving/model_servers/server.cc:358] Running gRPC ModelServer at 0.0.0.0:8500 ...
+[warn] getaddrinfo: address family for nodename not supported
+[evhttp_server.cc : 238] NET_LOG: Entering the event loop ...
+2020-04-28 02:52:19.894527: I tensorflow_serving/model_servers/server.cc:378] Exporting HTTP/REST API at:localhost:8501 ...
+172.17.0.5
+172.17.0.6
+172.17.0.7
+Active database: graph.db
+Directories in use:
+  home:         /home/admin/neo4j-community-3.5.6
+  config:       /home/admin/neo4j-community-3.5.6/conf
+  logs:         /home/admin/neo4j-community-3.5.6/logs
+  plugins:      /home/admin/neo4j-community-3.5.6/plugins
+  import:       /home/admin/neo4j-community-3.5.6/import
+  data:         /home/admin/neo4j-community-3.5.6/data
+  certificates: /home/admin/neo4j-community-3.5.6/certificates
+  run:          /home/admin/neo4j-community-3.5.6/run
+Starting Neo4j.
+Started neo4j (pid 217). It is available at http://0.0.0.0:7474/
+There may be a short delay until the server is ready.
+See /home/admin/neo4j-community-3.5.6/logs/neo4j.log for current status.
+sleep a while, wait neo4j start...
+172.17.0.8
+Archive:  elasticsearch-analysis-ik-6.3.2.zip
+  inflating: elasticsearch-6.3.2/plugins/ik/elasticsearch-analysis-ik-6.3.2.jar  
+  inflating: elasticsearch-6.3.2/plugins/ik/httpclient-4.5.2.jar  Archive:  elasticsearch-analysis-ik-6.3.2.zip
+  inflating: elasticsearch-6.3.2/plugins/ik/elasticsearch-analysis-ik-6.3.2.jar  
+  inflating: elasticsearch-6.3.2/plugins/ik/httpclient-4.5.2.jar  
+  inflating: elasticsearch-6.3.2/plugins/ik/httpcore-4.4.4.jar  
+  inflating: elasticsearch-6.3.2/plugins/ik/commons-logging-1.2.jar  
+  inflating: elasticsearch-6.3.2/plugins/ik/commons-codec-1.9.jar  
+
+  inflating: elasticsearch-6.3.2/plugins/ik/httpcore-4.4.4.jar    inflating: elasticsearch-6.3.2/plugins/ik/plugin-descriptor.properties  
+  inflating: elasticsearch-6.3.2/plugins/ik/plugin-security.policy  
+   creating: elasticsearch-6.3.2/plugins/ik/config/
+  inflating: elasticsearch-6.3.2/plugins/ik/config/quantifier.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/preposition.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_single_word_low_freq.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/stopword.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/suffix.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_main.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/commons-logging-1.2.jar  
+  inflating: elasticsearch-6.3.2/plugins/ik/commons-codec-1.9.jar  
+  inflating: elasticsearch-6.3.2/plugins/ik/plugin-descriptor.properties  
+  inflating: elasticsearch-6.3.2/plugins/ik/plugin-security.policy  
+   creating: elasticsearch-6.3.2/plugins/ik/config/
+  inflating: elasticsearch-6.3.2/plugins/ik/config/quantifier.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/preposition.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_single_word_low_freq.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/stopword.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/suffix.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_main.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/IKAnalyzer.cfg.xml  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/main.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/IKAnalyzer.cfg.xml  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/main.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_stopword.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_single_word_full.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/surname.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_single_word.dic  
+
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_stopword.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_single_word_full.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/surname.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_single_word.dic  
+excellent-elasticsearch started!
+entrypoint wait forever....
+summary-elasticsearch started!
+entrypoint wait forever....
+Archive:  elasticsearch-analysis-ik-6.3.2.zip
+  inflating: elasticsearch-6.3.2/plugins/ik/elasticsearch-analysis-ik-6.3.2.jar  
+  inflating: elasticsearch-6.3.2/plugins/ik/httpclient-4.5.2.jar  
+  inflating: elasticsearch-6.3.2/plugins/ik/httpcore-4.4.4.jar  
+  inflating: elasticsearch-6.3.2/plugins/ik/commons-logging-1.2.jar  
+  inflating: elasticsearch-6.3.2/plugins/ik/commons-codec-1.9.jar  
+  inflating: elasticsearch-6.3.2/plugins/ik/plugin-descriptor.properties  
+  inflating: elasticsearch-6.3.2/plugins/ik/plugin-security.policy  
+   creating: elasticsearch-6.3.2/plugins/ik/config/
+  inflating: elasticsearch-6.3.2/plugins/ik/config/quantifier.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/preposition.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_single_word_low_freq.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/stopword.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/suffix.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_main.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/IKAnalyzer.cfg.xml  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/main.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_stopword.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_single_word_full.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/surname.dic  
+  inflating: elasticsearch-6.3.2/plugins/ik/config/extra_single_word.dic  
+ranking-service-elasticsearch started!
+entrypoint wait forever....
+172.17.0.9
+search-planner started!
+entrypoint wait forever....
+search-planner started!
+entrypoint wait forever....
+172.17.0.11
+index creating....
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   383  100   383    0     0   6172      0 --:--:-- --:--:-- --:--:--  6278
+{"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"excellent_items","index_uuid":"_na_","index":"excellent_items"}],"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"excellent_items","index_uuid":"_na_","index":"excellent_items"},"status":404}
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   408  100    74  100   334    366   1654 --:--:-- --:--:-- --:--:--  1661
+{"acknowledged":true,"shards_acknowledged":true,"index":"excellent_items"}http://172.17.0.7:9200/excellent_items created!
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   363  100   363    0     0  28995      0 --:--:-- --:--:-- --:--:-- 30250
+{"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"good_items","index_uuid":"_na_","index":"good_items"}],"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"good_items","index_uuid":"_na_","index":"good_items"},"status":404}
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   403  100    69  100   334   1471   7124 --:--:-- --:--:-- --:--:--  7260
+{"acknowledged":true,"shards_acknowledged":true,"index":"good_items"}http://172.17.0.7:9200/good_items created!
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   359  100   359    0     0  30623      0 --:--:-- --:--:-- --:--:-- 32636
+{"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"bad_items","index_uuid":"_na_","index":"bad_items"}],"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"bad_items","index_uuid":"_na_","index":"bad_items"},"status":404}
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   402  100    68  100   334   1630   8009 --:--:-- --:--:-- --:--:--  8146
+{"acknowledged":true,"shards_acknowledged":true,"index":"bad_items"}http://172.17.0.7:9200/bad_items created!
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   375  100   375    0     0   6000      0 --:--:-- --:--:-- --:--:--  6048
+{"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"items_ranking","index_uuid":"_na_","index":"items_ranking"}],"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"items_ranking","index_uuid":"_na_","index":"items_ranking"},"status":404}
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   518  100    72  100   446    359   2229 --:--:-- --:--:-- --:--:--  2230100   518  100    72  100   446    359   2228 --:--:-- --:--:-- --:--:--  {"acknowledged":true,"shards_acknowledged":true,"index":"items_ranking"}2230
+http://172.17.0.8:9203/items_ranking created!
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   375  100   375    0     0   6097      0 --:--:-- --:--:-- --:--:--  6147
+{"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"items_summary","index_uuid":"_na_","index":"items_summary"}],"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"items_summary","index_uuid":"_na_","index":"items_summary"},"status":404}
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  3721  100    72  100  3649    346  17564 --:--:-- --:--:-- --:--:-- 17628
+{"acknowledged":true,"shards_acknowledged":true,"index":"items_summary"}http://172.17.0.6:9204/items_summary created
+index created!
+Archive:  benchmark-cli.zip
+   creating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/
+   creating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/benchmark-cli-1.0-SNAPSHOT.jar  172.17.0.12
+entrypoint wait forever....
+
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/neo4j-java-driver-1.7.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/elasticsearch-rest-high-level-client-6.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/commons-text-1.6.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/commons-lang3-3.8.1.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/commons-cli-1.4.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/picocli-3.9.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/guava-27.1-jre.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/colt-1.2.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/elasticsearch-6.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/elasticsearch-rest-client-6.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/parent-join-client-6.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/aggs-matrix-stats-client-6.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/rank-eval-client-6.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lang-mustache-client-6.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/failureaccess-1.0.1.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/jsr305-3.0.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/checker-qual-2.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/error_prone_annotations-2.2.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/j2objc-annotations-1.1.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/animal-sniffer-annotations-1.17.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/concurrent-1.3.4.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/elasticsearch-x-content-6.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/elasticsearch-cli-6.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/elasticsearch-core-6.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/elasticsearch-secure-sm-6.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-core-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-analyzers-common-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-backward-codecs-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-grouping-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-highlighter-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-join-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-memory-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-misc-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-queries-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-queryparser-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-sandbox-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-spatial-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-spatial-extras-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-spatial3d-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/lucene-suggest-7.5.0.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/hppc-0.7.1.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/joda-time-2.10.1.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/t-digest-3.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/HdrHistogram-2.1.9.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/log4j-api-2.11.1.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/jna-4.5.1.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/httpclient-4.5.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/httpcore-4.4.5.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/httpasyncclient-4.1.2.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/httpcore-nio-4.4.5.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/commons-codec-1.10.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/commons-logging-1.1.3.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/compiler-0.9.3.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/snakeyaml-1.17.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/jackson-core-2.8.11.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/jackson-dataformat-smile-2.8.11.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/jackson-dataformat-yaml-2.8.11.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/jackson-dataformat-cbor-2.8.11.jar  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/lib/jopt-simple-5.0.2.jar  
+   creating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/bin/
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/bin/benchmark-cli.bat  
+  inflating: benchmark-cli_tmp/benchmark-cli-1.0-SNAPSHOT/bin/benchmark-cli  
+data generating with scale_factor = 10 ...
+user data generating...
+user data generated, time cost=69 ms
+EXCELLENT item generating...
+EXCELLENT item generated, time cost=2209 ms
+GOOD item generating...
+GOOD item generated, time cost=7376 ms
+BAD item generating...
+BAD item generated, time cost=8873 ms
+data generated!
+data loading...
+excellent_items loading...
+ERROR StatusLogger Log4j2 could not find a logging implementation. Please add log4j-core to the classpath. Using SimpleLogger to log to the console...
+excellent_items loaded, cost 2158 ms
+good_items loading...
+good_items loaded, cost 2359 ms
+bad_items loading...
+bad_items loaded, cost 3272 ms
+excellent_items items_ranking loading...
+excellent_items items_ranking loaded, cost 1713 ms
+good_items items_ranking loading...
+good_items items_ranking loaded, cost 2388 ms
+bad_items items_ranking loading...
+bad_items items_ranking loaded, cost 3407 ms
+excellent_items items_summary loading...
+excellent_items items_summary loaded, cost 3774 ms
+good_items items_summary loading...
+good_items items_summary loaded, cost 7356 ms
+bad_items items_summary loading...
+bad_items items_summary loaded, cost 10713 ms
+neo4j user loading...
+Apr 28, 2020 2:53:43 AM org.neo4j.driver.internal.logging.JULogger info
+INFO: Direct driver instance 865059288 created for server address 172.17.0.5:7687
+10000 users loaded by now
+20000 users loaded by now
+30000 users loaded by now
+40000 users loaded by now
+50000 users loaded by now
+60000 users loaded by now
+all users loaded: 60000
+Apr 28, 2020 2:54:06 AM org.neo4j.driver.internal.logging.JULogger info
+INFO: Closing driver instance 865059288
+Apr 28, 2020 2:54:06 AM org.neo4j.driver.internal.logging.JULogger info
+INFO: Closing connection pool towards 172.17.0.5:7687
+neo4j user loaded, cost 25141 ms
+all data load finished!!
+data loaded!
+entrypoint wait forever....

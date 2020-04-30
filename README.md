@@ -2,7 +2,7 @@
 
 ## Introduction
 
-E-commerce search benchmark is the first end-to-end application benchmark for e-commerce search system with personalized recommendations. It helps people deeply understand  the characteristics of workloads for e-commerce search and drives better design options for industry search system.
+E-commerce search benchmark is the first end-to-end application benchmark for e-commerce search system with personalized recommendations. It helps people deeply understand  the characteristics of workloads for e-commerce search and drives better design options for industry search system.It specifies an e-commerce search dataset and workloads that driven by production data and real-world user queries, and targets at hardware and software systems that provide e-commerce online search service. Therefore, any of those system can be used to establish the feasibility of this benchmark.
 
 Features of the benchmark:
 * Provides a *Data Generator* using real-world datasets and producing synthetic data of various scales. 
@@ -68,7 +68,7 @@ Run `build.sh` in *`eSearchEngineModel`* directory to build and publish image, e
 >
 > `sysctl -p`
 
-### Running Example in standalone
+### Running an Example in standalone
 
 1. Copy `appctl.sh` in this directory to your working directory;
 2. Pull all the images by running: (If you are only running locally, do skip this step.)
@@ -79,12 +79,12 @@ Run `build.sh` in *`eSearchEngineModel`* directory to build and publish image, e
    ```
     sudo ./appctl.sh start
    ```
-4. Check if all the images are ready to work by running:
+4. Check if all the images are ready to work by running the following command in any docker:
    ```
     curl -H 'Content-Type:application/json;charset=UTF-8' -d'
-                {"uid":"798", "page":0, "query":"68"}' 172.17.0.6:8080/search
+                {"uid":"798", "page":0, "query":"68"}' ${search_planner_ip}:8080/search
    ```
-5. Run an example experiment by jmete:
+5. Run an example experiment by jmeter:
    - login to 'jmeter-image' by running:
     ```
     sudo docker exec -it aliesearch-jmeter-image bash
@@ -95,7 +95,7 @@ Run `build.sh` in *`eSearchEngineModel`* directory to build and publish image, e
     ./bin/jmeter -n -t search_stress.jmx -l result -e -o report
     ```
 
-### Running Example on k8s
+### Running an Example on k8s
 
 Distributed deployment is also provided depending on k8s, which is more in line with the online environment. The benchmark can be run on a k8s cluster as follows:
 
@@ -143,17 +143,17 @@ vim entrypoint.sh
 sh entrypoint.sh ${scale_factor}
 ```
 
-where, *${scale_factor}* sets the scale factor determining the dataset size (1 scale factor equals 1G goods and 6K user, 10 scale factor equals 10G goods and 60K user,and so on)
+where, *${scale_factor}* sets the scale factor determining the dataset size (1 scale factor equals 10K goods and 6K user, 10 scale factor equals 100K goods and 60K user,and so on)
 
 #### 3. Workload Generation
 
-Change to the directory *`workload_generator`*, and generate workload for specified hour of one day and specified user scale by running:
+Change to the directory *`workload_generator`*, and generate workload for the specified start hour of a day (-t) , the duration of the workload (-d), the workload factor to genearte (-f), and the user scale (-u) , by running:
 
 ```shell
-python3 workload_generator -t 21 -u 100000
+python3 workload_generator.py -t 21 -d 1800 -f 0.1 -u 100000
 ```
 
- A *`query_workload.csv`* file will be generated in the directory *`workload_generator`*, which will be driven to system model under test (e.g. *eSearchEngineModel* ).
+ A *`workload_u100000_h21_d1800_f0.1.csv`* file will be generated in the directory *`workload_generator`*, which will be driven to system model under test (e.g. *eSearchEngineModel* ).
 
 #### 4. Run experiment by jmeter
 
@@ -170,47 +170,34 @@ And change to the jmeter bin directory, start the pressure test process by runni
 cd apache-jmeter-5.1.1
 ./bin/jmeter -n -t search_stress.jmx -l result -e -o report
 ```
+### Running Benchmark in batches
+1. Change directory to ./run-scripts;
+2. Pull or build all the images
+3. Start all images with default dataset
+   - for running Benchmark in standalone, running:
+	```
+	./deploy_standalone.sh start
+	```
+   - for running Benchmark in a cluster, running:
+        ```
+	./deploy_cluster.sh start
+	```
+     with specified ip address for each docker in the `multi_iplist_env.sh` file
+4. Check if all the images are ready to work by running:
+   ```
+    curl -H 'Content-Type:application/json;charset=UTF-8' -d'
+                {"uid":"798", "page":0, "query":"68"}' ${search_planner_ip}:8080/search
+   ```
+5. Run experiments in batches by running the following script with specified cases:
+    ```
+    ./run_batch_cluster.sh
+    ```
+6. Analyze the results which are gathered in `./run-scripts/jmeter_result`:
+   - Change directory to `./run-scripts/jmeter_result` and Preprocess the result logs by running:
+     ```
+     ./result_stat.sh
+     ```
+   - The results consist of QPS, response time, latency breakdown of response time , system metrics, and so on.
 
-### Benchmark Results:Example Output
-
-**1. End-to-end performance metrics**
-
-E-commerce search benchmark use Jmeter as the driver to drive workload described *`query_workload.csv`* to system under test, so the end-to-end performance metrics are displayed by CLI and HTML of Jmeter.
-An example CLI of Jmeter CLI report is as following:
->
-> l result -e -o repo2rtpache-jmeter-5.1.1$ ./bin/jmeter -n -t search_stress.jmx -l
-> Creating summariser <summary>
-> Created the tree successfully using search_stress.jmx
-> Starting the test @ Wed Nov 13 02:33:53 UTC 2019 (1573612433454)
-> Waiting for possible Shutdown/StopTestNow/HeapDump/ThreadDump message on port 4445
->
-> summary +     67 in 00:00:06 =   10.7/s Avg:    45 Min:    15 Max:   115 Err:     0 (0.00%) Active: 3 Started: 3 Finished: 0
-> summary +   3108 in 00:00:30 =  103.6/s Avg:    40 Min:    13 Max:    97 Err:     0 (0.00%) Active: 8 Started: 8 Finished: 0
-> summary =   3175 in 00:00:36 =   87.5/s Avg:    40 Min:    13 Max:   115 Err:     0 (0.00%)    
-> summary +   6645 in 00:00:30 =  221.5/s Avg:    40 Min:    12 Max:   134 Err:     0 (0.00%) Active: 10 Started: 10 Finished: 0
->
-
-A detail result is reported by HTML in the report direcoty specified in runnign experiment. An example HTML report of Jmeter is as following:
-![jmeter_html](figures/jmeter_statistics.png)
-
-
-**2. Response time breakdwon**
-
-All steps of the full search path are logged, the statistical analysis of the breakdown of response time is printed every minute. 
-To check the statistics of breakdown time, login to *'aliesearch-search-planner'* by running:
-
-```shell
-sudo docker exec -it aliesearch-search-planner bash
-```
-
-Then check the statistics in *`out.log`* by running:
-
-```shell
-vim out.log
-```
-
-and the statistics of breakdown time is recorded as following:
-![statistics](figures/statistics.png)
-
-
-SearchBench specifies an e-commerce search dataset and workloads that driven by production data and real-world user queries, and target at the hardware and software system that provide e-commerce online search service. Therefore, any of those system can be used to establish the feasibility of this benchmark.
+### Running Benchmark in arm64v8 based platform
+The `build.sh` in *`eSearchEngineModel`* directory supports to build images for arm64v8 based platform when running on arm64v8 based platform. And all the experimennts can be run on arm64v8 based platform following the steps descripted above.

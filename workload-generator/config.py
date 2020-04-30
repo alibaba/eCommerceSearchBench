@@ -7,9 +7,9 @@ class Config:
 
         distributions = []
         if version is 'FULL':
-            dist_path = os.path.join(Config.ROOT_DIR, 'Dataset', 'scipy_continuous_distributions')
+            dist_path = os.path.join(Config.ROOT_DIR, 'WorkloadModel', 'scipy_continuous_distributions')
         else:
-            dist_path = os.path.join(Config.ROOT_DIR, 'Dataset', 'minimal_scipy_continuous_distributions')
+            dist_path = os.path.join(Config.ROOT_DIR, 'WorkloadModel', 'minimal_scipy_continuous_distributions')
 
         with open(dist_path) as f:
             for dist in f:

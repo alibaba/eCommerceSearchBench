@@ -13,7 +13,7 @@ from config import Config
 
 
 def get_dist_of_intra_interval():
-    burr12_params = pickle.load(open(os.path.join(Config.ROOT_DIR, 'Dataset', 'burr12_params'), 'rb'))
+    burr12_params = pickle.load(open(os.path.join(Config.ROOT_DIR, 'WorkloadModel', 'burr12_params'), 'rb'))
     num_params = len(burr12_params)
     idx = random.randint(0, num_params - 1)
     params = burr12_params[idx]
@@ -23,7 +23,7 @@ def get_dist_of_intra_interval():
 
 def get_dists_of_req_and_query_num(data_of_num_of_requests_and_distinct_queries):
     data_of_num_of_requests_and_distinct_queries = os.path.join(
-        Config.ROOT_DIR, 'Dataset', data_of_num_of_requests_and_distinct_queries)
+        Config.ROOT_DIR, 'WorkloadModel', data_of_num_of_requests_and_distinct_queries)
 
     num_request_query = {}
     num_total_sessions = 0
@@ -43,24 +43,33 @@ def get_dists_of_req_and_query_num(data_of_num_of_requests_and_distinct_queries)
     request_num_table = []
     request_num_probability_table = []
     distributions_of_distinct_query_num_in_sessions_with_diff_length = {}
+    turningpage_probability_dict={}
     for request_num, queries in num_request_query.items():
         num_sessions = sum(queries.values())
+        num_requests = request_num * num_sessions
         request_num_table.append(request_num)
         request_num_probability_table.append(num_sessions / num_total_sessions)
 
+        num_sessions_of_request_lessthan100=0
+        turningpage_req_num_total=0
         if request_num <= 100:
             query_num_table = []
             query_num_probability_table = []
             for query_num, total in queries.items():
+                num_sessions_of_request_lessthan100+=total
+                turningpage_req_num=(request_num-query_num)*total
+                turningpage_req_num_total+=turningpage_req_num
                 query_num_table.append(query_num)
                 query_num_probability_table.append(total / num_sessions)
+            req_num_total_of_request_lessthan100=request_num * num_sessions_of_request_lessthan100
+            turningpage_probability_dict[request_num]=turningpage_req_num_total/req_num_total_of_request_lessthan100
+
             distributions_of_distinct_query_num_in_sessions_with_diff_length[request_num] = stats.rv_discrete(
                 values=(query_num_table, query_num_probability_table))
 
     distribution_of_request_num = stats.rv_discrete(values=(request_num_table, request_num_probability_table))
 
-    return distribution_of_request_num, distributions_of_distinct_query_num_in_sessions_with_diff_length
-
+    return distribution_of_request_num, distributions_of_distinct_query_num_in_sessions_with_diff_length,turningpage_probability_dict
 
 def test():
     get_dist_of_intra_interval()
@@ -68,4 +77,4 @@ def test():
 
 
 if __name__ == '__main__':
-    test()
+    get_dists_of_req_and_query_num("session_length_and_distinct_query_num")

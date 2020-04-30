@@ -71,7 +71,7 @@ def show_seasonal_change(time_series_data, seconds_per_season, num_seasons, seas
 
 def load_inter_time_series_model(inter_time_series_decomposition_data):
     inter_time_series_decomposition_data = os.path.join(
-        Config.ROOT_DIR, 'Dataset', inter_time_series_decomposition_data)
+        Config.ROOT_DIR, 'WorkloadModel', inter_time_series_decomposition_data)
 
     trend, day_changes, week_changes = None, None, None
     with open(inter_time_series_decomposition_data) as f:
@@ -93,7 +93,7 @@ def main():
     print(Config.ROOT_DIR)
     trend, day_component, week_component = decompose(
         os.path.join(
-            Config.ROOT_DIR, 'Dataset', 'inter_session_time_series.model.tmp'))
+            Config.ROOT_DIR, 'WorkloadModel', 'inter_session_time_series.model.tmp'))
     week_component = week_component[86400 * 3:] + week_component[:86400 * 3]
     print(trend)
     print(day_component)

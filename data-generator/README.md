@@ -1,6 +1,6 @@
 # Data Generator
 
-The Data Generator is responsible for providing the data sets used by the e-commerce search benchmark. This data generator is designed to produce goods data and user data that mimic the characteristics of those of real data from Taobao. Especially,the goods data consisit of three types:
+The Data Gennerator is responsible for providing the data sets used by the e-commerce search benchmark. This data generator is designed to produce goods data and user data that mimic the characteristics of those of real data from Taobao. Especially,the goods data consisit of three types:
 - excellent goods, with high popularity, which ratio is 15%
 - good goods, with medium popularity, which ratio is 35%
 - bad goods, with low popularity, which ratio is 50%
@@ -36,7 +36,7 @@ run `bash build.sh` in this directory to complete the compilation and packaging,
     ./bin/benchmark-cli generate --scale ${scale_factor}
     ```
 
-    where `${scale_factor}` sets the scale factor determining the dataset size (1 scale factor equals     1G goods and 6K user, 10 scale factor equals 10G goods and 60K user,and so on)
+    where `${scale_factor}` sets the scale factor determining the dataset size (1 scale factor equals 10K goods and 6K user, 10 scale factor equals 100K goods and 60K user,and so on), the default value is 10.
 
 ### Data generation in docker
  
@@ -46,7 +46,7 @@ sudo docker exec -it aliesearch-benchmark-cli bash
 sh entrypoint.sh ${scale_factor}
 ```
 
-where `${scale_factor}` sets the scale factor determining the dataset size (1 scale factor equals 1G goods and 6K user, 10 scale factor equals 10G goods and 60K user,and so on)
+where `${scale_factor}` sets the scale factor determining the dataset size (1 scale factor equals 10K goods and 6K user, 10 scale factor equals 100K goods and 60K user,and so on), the default value is 10.
 
 ## Data Schema
 

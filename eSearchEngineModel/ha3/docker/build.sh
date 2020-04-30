@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
-
+ha3_type=$1
 ver="latest"
-name=aliesearch-ha3:${ver}
+if [[ "x${ha3_type}" == "x" ]];then
+    name=aliesearch-ha3:${ver}
+elif [[ "x${ha3_type}" == "xsearcher" ]];then
+    name=aliesearch-ha3-${ha3_type}:${ver}
+    cp ./file/entrypoint_searcher.sh ./file/entrypoint.sh
+elif [[ "x${ha3_type}" == "xsummary" ]];then
+    name=aliesearch-ha3-${ha3_type}:${ver}
+    cp ./file/entrypoint_summary.sh ./file/entrypoint.sh
+else
+    echo "Unsupported ha3 type!"
+fi
+
 if [[ "$(docker images -q ${name} 2> /dev/null)" != "" ]]; then
-    docker image rm ${name}
+    docker rmi ${name}
 fi
 docker build -f Dockerfile -t ${name} .

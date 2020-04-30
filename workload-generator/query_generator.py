@@ -10,7 +10,7 @@ from config import Config
 class QueryGenerator:
     def __init__(self):
         self.query_dictionary: pd.DataFrame = pd.read_pickle(
-            os.path.join(Config.ROOT_DIR, 'Dataset', '1m_sampling_queries.pkl'))
+            os.path.join(Config.ROOT_DIR, 'WorkloadModel', '1m_sampling_queries.pkl'))
         assert isinstance(self.query_dictionary, pd.DataFrame)
 
     def generate_a_query(self):

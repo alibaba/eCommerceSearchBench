@@ -15,6 +15,10 @@ build(){
 #    # build ha3
     cd ${pwdPath}
     cd ha3 && sh build.sh
+    cd ${pwdPath}
+    cd ha3 && sh build.sh searcher
+    cd ${pwdPath}
+    cd ha3 && sh build.sh summary
 #     build Query Planner
     cd ${pwdPath}
     cd query-planner && sh build.sh
@@ -49,42 +53,42 @@ push()
     repoPath=${repo}/csp
     # base image
     baseImgRepo=${repoPath}/${baseImg}:${imgVer}
-    docker image rm ${baseImgRepo}
+    docker rmi ${baseImgRepo}
     docker tag ${baseImg}:${imgVer} ${baseImgRepo}
     docker push ${baseImgRepo}
     # search planner
     spImgRepo=${repoPath}/${spImg}:${imgVer}
-    docker image rm ${spImgRepo}
+    docker rmi ${spImgRepo}
     docker tag ${spImg}:${imgVer} ${spImgRepo}
     docker push ${spImgRepo}
 #     ranking service
     rankingImgRepo=${repoPath}/${rankingImg}:${imgVer}
-    docker image rm ${rankingImgRepo}
+    docker rmi ${rankingImgRepo}
     docker tag ${rankingImg}:${imgVer} ${rankingImgRepo}
     docker push ${rankingImgRepo}
 #    # ha3
     ha3ImgRepo=${repoPath}/${ha3Img}:${imgVer}
-    docker image rm ${ha3ImgRepo}
+    docker rmi ${ha3ImgRepo}
     docker tag ${ha3Img}:${imgVer} ${ha3ImgRepo}
     docker push ${ha3ImgRepo}
 #     query planner
     qpImgRepo=${repoPath}/${qpImg}:${imgVer}
-    docker image rm ${qpImgRepo}
+    docker rmi ${qpImgRepo}
     docker tag ${qpImg}:${imgVer} ${qpImgRepo}
     docker push ${qpImgRepo}
     # tf-serving
     tfImgRepo=${repoPath}/${tfImg}:${imgVer}
-    docker image rm ${tfImgRepo}
+    docker rmi ${tfImgRepo}
     docker tag ${tfImg}:${imgVer} ${tfImgRepo}
     docker push ${tfImgRepo}
     # benchmark cli
     benchmarkCliImgRepo=${repoPath}/${benchmarkCliImg}:${imgVer}
-    docker image rm ${benchmarkCliImgRepo}
+    docker rmi ${benchmarkCliImgRepo}
     docker tag ${benchmarkCliImg}:${imgVer} ${benchmarkCliImgRepo}
     docker push ${benchmarkCliImgRepo}
     # jmeter
     jmeterImgRepo=${repoPath}/${jmeterImg}:${imgVer}
-    docker image rm ${jmeterImgRepo}
+    docker rmi ${jmeterImgRepo}
     docker tag ${jmeterImg}:${imgVer} ${jmeterImgRepo}
     docker push ${jmeterImgRepo}
 }
