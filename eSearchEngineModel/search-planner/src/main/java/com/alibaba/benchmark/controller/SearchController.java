@@ -18,6 +18,14 @@ package com.alibaba.benchmark.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.apache.http.HttpHost;
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.routing.HttpRoute;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.conn.PoolingClientConnectionManager;
+import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.get.MultiGetItemResponse;
@@ -36,6 +44,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -50,6 +59,8 @@ import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 
 import com.alibaba.benchmark.stat.StatService;
+
+import static org.apache.http.conn.params.ConnManagerParams.DEFAULT_MAX_TOTAL_CONNECTIONS;
 
 @RestController
 public class SearchController {
@@ -106,6 +117,8 @@ public class SearchController {
 
     private StatService ha3SearchStatService = new StatService(true);
 
+    private RestTemplate restTemplate;
+
     final String schema = "http";
 
     @PostConstruct
@@ -115,6 +128,21 @@ public class SearchController {
         this.badItemSearchClient = new SearchClient(badItemHost, badItemPort, schema).getClient();
         this.rankingSystemClient = new SearchClient(rankingSystemHost, rankingSystemPort, schema).getClient();
         this.summarySystemClient = new SearchClient(summarySystemHost, summarySystemPort, schema).getClient();
+
+        this.restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory(httpClient()));
+    }
+
+    private HttpClient httpClient() {
+        //PoolingClientConnectionManager connectionManager = new PoolingClientConnectionManager();
+        //connectionManager.setMaxTotal(4000);
+        //connectionManager.setDefaultMaxPerRoute(1000);
+        //HttpClient defaultHttpClient = new DefaultHttpClient(connectionManager);
+        //return defaultHttpClient;
+        CloseableHttpClient build = HttpClientBuilder.create()
+            .setMaxConnPerRoute(1000)
+            .setMaxConnTotal(4000)
+            .build();
+        return build;
     }
 
     @RequestMapping("/checkpreload.htm")
@@ -185,10 +213,8 @@ public class SearchController {
      * @return
      */
     private List<Double> queryPlanner(String uid, String query) {
-        RestTemplate restTemplate = new RestTemplate();
         HttpEntity<QueryInfo> request = new HttpEntity<>(new QueryInfo(uid, query));
         Weights weights = restTemplate.postForObject(qpURL, request, Weights.class);
-
         return Objects.requireNonNull(weights).getWeights();
     }
 
