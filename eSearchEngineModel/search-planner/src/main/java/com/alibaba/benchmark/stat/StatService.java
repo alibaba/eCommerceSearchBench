@@ -72,7 +72,7 @@ public class StatService {
         qpStat.accept(qpCost);
         ha3SearcherStat.accept(ha3SearcherCost);
         rankingStat.accept(rankingCost);
-        ha3SummaryStat.accept(ha3SearcherCost);
+        ha3SummaryStat.accept(ha3SummaryCost);
         lastUpdate = System.currentTimeMillis();
         dataUpdate = true;
 
