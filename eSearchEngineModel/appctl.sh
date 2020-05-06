@@ -38,13 +38,13 @@ ${img_jmeter_image}
 )
 
 pull_all_images(){
-  #sudo docker image rm ${img_tf_serving}
-  #sudo docker image rm ${img_query_planner}
-  #sudo docker image rm ${img_ranking_service}
-  #sudo docker image rm ${img_ha3}
-  #sudo docker image rm ${img_search_planner}
-  #sudo docker image rm ${img_benchmark_cli}
-  #sudo docker image rm ${img_jmeter_image}
+  #sudo docker rmi ${img_tf_serving}
+  #sudo docker rmi ${img_query_planner}
+  #sudo docker rmi ${img_ranking_service}
+  #sudo docker rmi ${img_ha3}
+  #sudo docker rmi ${img_search_planner}
+  #sudo docker rmi ${img_benchmark_cli}
+  #sudo docker rmi ${img_jmeter_image}
 
   #sudo docker pull ${img_tf_serving}
   #sudo docker pull ${img_query_planner}

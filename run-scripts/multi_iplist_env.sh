@@ -1,0 +1,9 @@
+query_planner_ip=11.167.235.144
+#ha3_ip=11.167.235.144
+ha3_searcher_ip=11.167.235.144
+ha3_summary_ip=11.167.235.144
+ranking_service_ip=11.167.235.144
+search_planner_ip=11.167.235.155
+tf_serving_ip=11.167.235.144
+benchmark_cli_ip=`hostname -i`
+jmeter_ip=`hostname -i`

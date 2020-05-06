@@ -1,0 +1,7 @@
+FROM emacski/tensorflow-serving:2ad58dc3378c1f4aa14d912d38e7dca688967dcaeace05d9eafa6596ec015070
+COPY ./file/ranking_weights_model /models/ranking_weights_model
+
+# The only required piece is the model name in order to differentiate endpoints
+# ENV MODEL_NAME=model
+ENV MODEL_NAME=ranking_weights_model
+
