@@ -22,20 +22,14 @@ import java.io.Serializable;
 
 public class QueryInfo implements Serializable {
     private String uid;
-    private int page;
+    private int page = 1;
+    private int pageSize = 6;
     private String query;
     /** 粗排阶段查询的接过数 */
     private int fetchSize = 1000;
 
     public QueryInfo(String uid, String query) {
         this.uid = uid;
-        this.page = 1;
-        this.query = query;
-    }
-
-    public QueryInfo(String uid, int page, String query) {
-        this.uid = uid;
-        this.page = page;
         this.query = query;
     }
 
@@ -72,5 +66,24 @@ public class QueryInfo implements Serializable {
 
     public void setFetchSize(int fetchSize) {
         this.fetchSize = fetchSize;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    @Override
+    public String toString() {
+        return "QueryInfo{" +
+            "uid='" + uid + '\'' +
+            ", page=" + page +
+            ", pageSize=" + pageSize +
+            ", query='" + query + '\'' +
+            ", fetchSize=" + fetchSize +
+            '}';
     }
 }
