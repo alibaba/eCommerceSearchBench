@@ -161,8 +161,20 @@ public class SearchController {
         return String.valueOf(new Random().nextLong());
     }
 
+    private List<String> splitPage(List<String> docIds, int pageSize, int pageNum) {
+        int startIdx = (pageNum - 1) * pageSize;
+        int endIdx = pageNum * pageSize;
+        if(docIds.size() <= pageSize){
+            return docIds;
+        }
+        if(docIds.size() <= endIdx) {
+            return docIds.subList(docIds.size() - pageSize, docIds.size());
+        }
+        return docIds.subList(startIdx, endIdx);
+    }
     @PostMapping("/search")
     List<GetResponse> search(@RequestBody QueryInfo queryInfo) throws IOException {
+        log.info("enter /search {}", queryInfo);
         long totalSt = System.currentTimeMillis();
         long st = totalSt;
         List<Double> weights = queryPlanner(queryInfo.getUid(), queryInfo.getQuery());
@@ -173,17 +185,17 @@ public class SearchController {
         st = System.currentTimeMillis();
         docIds = rankingPhase(docIds, rankingIndex, queryInfo.getQuery(), weights);
         long rankingPhaseTime = System.currentTimeMillis() - st;
+
         st = System.currentTimeMillis();
-        final int pageSize = 6;
-        if (docIds.size() > pageSize) {
-            docIds = docIds.subList(0, pageSize);
-        }
-        List<GetResponse> responses = fetchPhase(summaryIndex, docIds);
+        int pageNum = Math.max(1, queryInfo.getPage());
+        final int pageSize = Math.max(1, queryInfo.getPageSize());
+        List<String> docIdsReturn = splitPage(docIds, pageSize, pageNum);
+        List<GetResponse> responses = fetchPhase(summaryIndex, docIdsReturn);
         long fetchPhaseTime = System.currentTimeMillis() - st;
         long totalCost = System.currentTimeMillis() - totalSt;
         String out = String.format("queryPlannerTime=%d, matchPhaseTime=%d, "
-                + "rankingPhaseTime=%d fetchPhaseTime=%d, fetchedResult=%d",
-            queryPlannerTime, matchPhaseTime, rankingPhaseTime, fetchPhaseTime, docIds.size());
+                + "rankingPhaseTime=%d fetchPhaseTime=%d, candidateDocs=%d, resultDocs=%d",
+            queryPlannerTime, matchPhaseTime, rankingPhaseTime, fetchPhaseTime, docIds.size(), docIdsReturn.size());
         searchStatService.accept(totalCost, queryPlannerTime, matchPhaseTime, rankingPhaseTime, fetchPhaseTime);
         //System.out.println(out);
         log.info(out);
@@ -281,22 +293,18 @@ public class SearchController {
         // {\"field_value_factor\":{\"field\":\"ratesum\",\"factor\":%s}}],\"boost\":%s,\"score_mode\":\"sum\",
         // \"boost_mode\":\"sum\"}}}}}";
         String queryTemplate
-            = "{\"_source\":false,\"query\":{\"bool\":{\"filter\":{\"terms\":{\"_id\":%s}}}},"
+            = "{\"_source\":false,\"from\":0, \"size\":%s, "
+            + "\"query\":{\"bool\":{\"filter\":{\"terms\":{\"_id\":%s}}}},"
             + "\"rescore\":{\"window_size\":%d,\"query\":{\"rescore_query\":{\"function_score\":{\"query\":{\"match"
             + "\":{\"title\":\"%s\"}},\"functions\":[{\"field_value_factor\":{\"field\":\"price\",\"factor\":%s}},"
             + "{\"field_value_factor\":{\"field\":\"ratesum\",\"factor\":%s}}],\"boost\":%s,\"score_mode\":\"sum\","
             + "\"boost_mode\":\"sum\"}}}}}";
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String idsString = ow.writeValueAsString(docIds);
-        //        String queryJsonString = String.format(
-        //                queryTemplate,
-        //                idsString, query,
-        //                String.valueOf(weights.get(1)),
-        //                String.valueOf(weights.get(2)),
-        //                String.valueOf(weights.get(0)));
 
         String queryJsonString = String.format(
             queryTemplate,
+            String.valueOf(docIds.size()),
             idsString, FETCH_SIZE, query,
             String.valueOf(weights.get(1)),
             String.valueOf(weights.get(2)),
@@ -309,6 +317,7 @@ public class SearchController {
         Response response = rankingSystemClient.getLowLevelClient().performRequest(request);
 
         String responseJson = EntityUtils.toString(response.getEntity());
+        //log.info("responseJson={}", responseJson);
 
         Pattern pattern = Pattern.compile("_id\":\"(.*?)\",");
         Matcher matcher = pattern.matcher(responseJson);
@@ -317,10 +326,9 @@ public class SearchController {
         while (matcher.find()) {
             rescoreDocIds.add(matcher.group(1));
         }
-
         //log.info("rankingPhase: " + rescoreDocIds.toString());
-
-        return rescoreDocIds.subList(0, Math.min(PAGE_SIZE, rescoreDocIds.size()));
+        //return rescoreDocIds.subList(0, Math.min(PAGE_SIZE, rescoreDocIds.size()));
+        return rescoreDocIds;
     }
 
     private List<GetResponse> fetchPhase(String index, List<String> docIds) throws IOException {
