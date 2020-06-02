@@ -96,6 +96,7 @@ stop_all_containers(){
 start_tf_serving(){
   echo "${tf_serving} starting..."
   nohup sudo docker run --rm --net=bridge -m 8g --cpus="4" \
+    --sysctl net.ipv4.ip_local_port_range="1024 65000" \
     --name=${tf_serving} ${img_tf_serving} &
   echo "${tf_serving} starting..."
 }
@@ -107,12 +108,14 @@ start_query_planner(){
   nohup sudo docker run --rm --net=bridge -m 8g --cpus="8" \
    -e tensor_flow_server_ip=${tf_serving_ip} \
    -e tensor_flow_server_port=8501 \
+   --sysctl net.ipv4.ip_local_port_range="1024 65000" \
    --name=${query_planner} ${img_query_planner} &
   echo "${query_planner} started"
 }
 start_ranking_service(){
   echo "${ranking_service} starting..."
   nohup sudo docker run --rm --net=bridge -m 8g --cpus="4" \
+   --sysctl net.ipv4.ip_local_port_range="1024 65000" \
    --name=${ranking_service} ${img_ranking_service} &
   echo "${ranking_service} started"
 }
@@ -120,6 +123,7 @@ start_ranking_service(){
 start_ha3(){
   echo "${ha3} starting..."
   nohup sudo docker run --rm --net=bridge -m 8g --cpus="8" \
+   --sysctl net.ipv4.ip_local_port_range="1024 65000" \
    --name=${ha3} ${img_ha3} &
   echo "${ha3} started"
 }
@@ -139,6 +143,7 @@ start_search_planner(){
     -e bad_item_host=${ha3_ip} -e bad_item_port=9200 \
     -e ranking_host=${ranking_service_ip} -e ranking_port=9203 \
     -e summary_host=${ha3_ip} -e summary_port=9204 \
+   --sysctl net.ipv4.ip_local_port_range="1024 65000" \
     --name=${search_planner} ${img_search_planner} &
   echo "${search_planner} started"
 }
@@ -159,12 +164,15 @@ start_benchmark_cli(){
     -e ranking_host=${ranking_service_ip} -e ranking_port=9203 \
     -e summary_host=${ha3_ip} -e summary_port=9204 \
     -e neo4j_host=${query_planner_ip} -e neo4j_port=7687 \
+   --sysctl net.ipv4.ip_local_port_range="1024 65000" \
     --name=${benchmark_cli} ${img_benchmark_cli} &
   echo "${benchmark_cli} started"
 }
 start_jmeter_image(){
   echo "${jmeter_image} starting..."
-  nohup sudo docker run --rm -m 8g --cpus="8" --name=${jmeter_image} ${img_jmeter_image} &
+  nohup sudo docker run --rm -m 8g --cpus="8" \
+      --sysctl net.ipv4.ip_local_port_range="1024 65000" \
+      --name=${jmeter_image} ${img_jmeter_image} &
   echo "${jmeter_image} started"
 }
 start_all(){

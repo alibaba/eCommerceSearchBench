@@ -3,8 +3,8 @@ MAINTAINER CarpenterLee
 
 #RUN java -version
 RUN chmod -R a+w /tmp/
-COPY file/model_all.bin /home/admin/
-COPY file/neo4j-community-3.5.6-unix.tar.gz /home/admin/
+COPY file/model_all.bin* /home/admin/
+COPY file/neo4j-community-3.5.6-unix.tar.gz* /home/admin/
 COPY file/neo4j.conf /home/admin/
 COPY file/entrypoint.sh /home/admin/
 COPY file/query-planner.jar /home/admin/

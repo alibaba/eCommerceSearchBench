@@ -81,6 +81,7 @@ Run `build.sh` in *`eSearchEngineModel`* directory to build and publish image, e
    ```
 4. Check if all the images are ready to work by running the following command in any docker:
    ```
+    sudo docker exec -it aliesearch-jmeter-image bash
     curl -H 'Content-Type:application/json;charset=UTF-8' -d'
                 {"uid":"798", "page":0, "query":"68"}' ${search_planner_ip}:8080/search
    ```
